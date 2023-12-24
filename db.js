@@ -6,6 +6,7 @@ const connection =mysql.createConnection({
     user:'root',
     password:'root1234',
     database:'result_analysis',
+    connectTimeout: 20000,
     port:3306
 });
 //checking if connection is succesful or not
