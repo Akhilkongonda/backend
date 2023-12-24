@@ -9,7 +9,7 @@ app.listen(3500,()=>{
 
 // stock overflow middleware
 const corsOptions = {
-    origin: 'https://student-info-retrievel.vercel.app',
+    origin: 'http://localhost:3000',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Add the necessary methods
     optionSuccessStatus: 200
@@ -32,6 +32,29 @@ const studentdata = require('./StudentApi')
 app.use('/StudentApi',studentdata);  //here this the frontend serach for the correct path so here it matches to /StudentApi which is in frontend; and moves to the studentdata that is astudentapi.js 
 
 
+const jwt=require('jsonwebtoken');
+ 
+app.post('/verifylogintoken',async(req,res)=>{
+    console.log('token :', req.body);
+    const token = req.body.token;
+    const decodedToken = jwt.decode(token, { complete: true });
+    console.log('Decoded Token:', decodedToken);
+
+    const userloged=decodedToken?.payload["mail"];
+
+    console.log(userloged);
+
+    try{
+        let userdata=jwt.verify(token,'abcdefg');
+        console.log('tokenn valid')
+        res.send({message:"tokenvalid",userinfo:userloged})
+
+    }
+    catch(err){
+        console.log("token invalid");
+        res.send({message:"tokennotvalid"});
+    }
+})
 
 
 
