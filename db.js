@@ -2,7 +2,7 @@ const mysql=require('mysql');
 
 //connecting to data base
 const connection =mysql.createConnection({
-    host:'localhost',
+    host:'192.168.31.134',
     user:'root',
     password:'root1234',
     database:'result_analysis',
